@@ -5,7 +5,6 @@ import com.example.cs4550finalprojectjava.models.Rating;
 import com.example.cs4550finalprojectjava.models.Review;
 import com.example.cs4550finalprojectjava.repositories.RatingRepository;
 import com.example.cs4550finalprojectjava.repositories.ReviewRepository;
-import com.example.cs4550finalprojectjava.repositories.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +19,6 @@ public class RatingService {
     RatingRepository ratingRepository;
     @Autowired
     ReviewRepository reviewRepository;
-    @Autowired
-    SongRepository songRepository;
 
     @GetMapping("/api/rating")
     public List<Rating> findAllRatings() {
