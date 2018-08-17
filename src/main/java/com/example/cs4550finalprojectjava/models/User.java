@@ -114,6 +114,7 @@ public class User {
     }
 
     public void updateUser(User user) {
+        this.role = user.role;
         if (user.username != null) {
             this.username = user.username;
         }
