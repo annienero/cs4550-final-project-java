@@ -31,6 +31,16 @@ public class RatingService {
         return ratingRepository.findById(ratingId).get();
     }
 
+    @GetMapping("/api/review/{reviewId}/rating")
+    public List<Rating> findAllRatingsForReview(@PathVariable("reviewId") String reviewId) {
+        Optional<Review> data = reviewRepository.findById(Integer.parseInt(reviewId));
+        if(data.isPresent()) {
+            Review review = data.get();
+            return review.getRatings();
+        }
+        return null;
+    }
+
     @PostMapping("/api/review/{reviewId}/rating")
     public Rating createRating(@PathVariable("reviewId") String reviewId, @RequestBody Rating rating) {
         Optional<Review> data = reviewRepository.findById(Integer.parseInt(reviewId));
