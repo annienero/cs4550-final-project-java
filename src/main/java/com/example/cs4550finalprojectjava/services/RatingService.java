@@ -53,16 +53,16 @@ public class RatingService {
         return null;
     }
 
-    @PutMapping("/api/rating/{ratingId}")
+    @PutMapping("/api/rating/{id}")
     public Rating updateRating(@PathVariable("id") String id, @RequestBody Rating rating) {
         Rating oldRating = ratingRepository.findById(Integer.parseInt(id)).get();
         oldRating.updateRating(rating);
         return ratingRepository.save(oldRating);
     }
 
-    @DeleteMapping("/api/rating/{ratingId}")
-    public void deleteRating(@PathVariable("ratingId") String ratingId) {
-        ratingRepository.deleteById(Integer.parseInt(ratingId));
+    @DeleteMapping("/api/rating/{id}")
+    public void deleteRating(@PathVariable("id") String id) {
+        ratingRepository.deleteById(Integer.parseInt(id));
     }
 
 }
