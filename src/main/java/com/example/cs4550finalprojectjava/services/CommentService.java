@@ -5,6 +5,7 @@ import com.example.cs4550finalprojectjava.models.Review;
 import com.example.cs4550finalprojectjava.models.User;
 import com.example.cs4550finalprojectjava.repositories.CommentRepository;
 import com.example.cs4550finalprojectjava.repositories.ReviewRepository;
+import com.example.cs4550finalprojectjava.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class CommentService {
     CommentRepository commentRepository;
     @Autowired
     ReviewRepository reviewRepository;
+
 
     @GetMapping("/api/comment")
     public List<Comment> findAllComments() {
@@ -47,7 +49,7 @@ public class CommentService {
         return null;
     }
 
-    @PutMapping("/api/comment/{commentId}")
+    @PutMapping("/api/comment/{id}")
     public Comment updateComment(@PathVariable("id") String id, @RequestBody Comment comment) {
         Comment oldComment = commentRepository.findById(Integer.parseInt(id)).get();
         oldComment.updateComment(comment);
@@ -57,5 +59,15 @@ public class CommentService {
     @DeleteMapping("/api/comment/{commentId}")
     public void deleteComment(@PathVariable("commentId") String commentId) {
         commentRepository.deleteById(Integer.parseInt(commentId));
+    }
+
+    @GetMapping("/api/review/{reviewId}/comment")
+    public List<Comment> findAllCommentsForReview(@PathVariable("reviewId") String reviewId) {
+        Optional<Review> data = reviewRepository.findById(Integer.parseInt(reviewId));
+        if(data.isPresent()) {
+            Review review = data.get();
+            return review.getComments();
+        }
+        return null;
     }
 }

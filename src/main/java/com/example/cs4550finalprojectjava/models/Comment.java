@@ -20,6 +20,11 @@ public class Comment {
     @JsonIgnore
     private Review review;
 
+    @PrePersist
+    protected void onCreate() {
+        commentTime = new Date();
+    }
+
     public int getId() {
         return id;
     }

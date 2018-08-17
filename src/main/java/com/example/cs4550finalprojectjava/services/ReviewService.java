@@ -26,9 +26,6 @@ public class ReviewService {
     @Autowired
     SongRepository songRepository;
 
-    @Autowired
-    UserRepository userRepository;
-
     @GetMapping("/api/review")
     public List<Review> findAllReviews() {
         return (List<Review>) reviewRepository.findAll();

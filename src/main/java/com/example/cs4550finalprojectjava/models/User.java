@@ -19,8 +19,7 @@ public class User {
     @OneToMany()
     @JoinColumn(name="artist_id", referencedColumnName="id")
     private List<Song> uploads;
-    @OneToMany()
-    @JoinColumn(name="commenter_id", referencedColumnName="id")
+    @OneToMany(mappedBy="user")
     private List<Comment> comments;
     @ManyToMany()
     @JoinColumn(name="followed_id", referencedColumnName="id")
