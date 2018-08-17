@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 
 import static com.example.cs4550finalprojectjava.services.UserService.USER;
 
@@ -21,17 +20,17 @@ public class SongService {
     SongRepository songRepository;
     @Autowired
     UserRepository userRepository;
-//work
+
     @GetMapping("/api/song")
     public List<Song> findAllSongs() {
         return (List<Song>) songRepository.findAll();
     }
-//work
+
     @GetMapping("/api/song/search/{keyword}")
     public List<Song> findAllSongsWithKeyword(@PathVariable("keyword") String keyword) {
         return songRepository.findAllSongsWithKeyword(keyword);
     }
-//work
+
     @GetMapping("/api/song/{id}")
     public Song findSongById(@PathVariable("id") String id) {
         int songId = Integer.parseInt(id);
@@ -73,15 +72,15 @@ public class SongService {
                 .toString().toLowerCase().replaceAll("\\s",""));
     }
 
-    @PutMapping("/api/song/{songId}")
+    @PutMapping("/api/song/{id}")
     public Song updateSong(@PathVariable("id") String id, @RequestBody Song song) {
         Song oldSong = songRepository.findById(Integer.parseInt(id)).get();
         oldSong.updateSong(song);
         return songRepository.save(oldSong);
     }
 
-    @DeleteMapping("/api/song/{songId}")
-    public void deleteSong(@PathVariable("songId") String songId) {
-        songRepository.deleteById(Integer.parseInt(songId));
+    @DeleteMapping("/api/song/{id}")
+    public void deleteSong(@PathVariable("id") String id) {
+        songRepository.deleteById(Integer.parseInt(id));
     }
 }
