@@ -3,12 +3,6 @@ package com.example.cs4550finalprojectjava.models;
 import javax.persistence.*;
 import java.util.List;
 
-enum Role {
-    REVIEWER,
-    ARTIST,
-    ADMIN
-}
-
 @Entity
 public class User {
     @Id

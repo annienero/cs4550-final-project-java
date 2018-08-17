@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
-enum RatingType {
-    PRODUCTION
-}
 @Entity
 public class Rating {
     @Id

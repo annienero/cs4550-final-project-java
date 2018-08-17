@@ -17,23 +17,23 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
-
+//work
     @PostMapping("/api/user")
     public User createUser(@RequestBody User user) {
         return userRepository.save(user);
     }
-
+//work
     @GetMapping("/api/user")
     public List<User> findAllUsers() {
         return (List<User>) userRepository.findAll();
     }
-
+//work
     @GetMapping("/api/user/{id}")
     public User findUserById(@PathVariable("id") String id) {
         int userId = Integer.parseInt(id);
         return userRepository.findById(userId).get();
     }
-
+// role no work :////
     @PutMapping("/api/user/{id}")
     public User updateUser(@PathVariable("id") String id, @RequestBody User user) {
         int userId = Integer.parseInt(id);
@@ -80,7 +80,7 @@ public class UserService {
     }
 
     @DeleteMapping("/api/user/{userId}")
-    public void deleteSong(@PathVariable("userId") String userId) {
+    public void deleteUser(@PathVariable("userId") String userId) {
         userRepository.deleteById(Integer.parseInt(userId));
     }
 
