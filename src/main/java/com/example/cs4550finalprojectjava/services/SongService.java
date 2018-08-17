@@ -1,13 +1,16 @@
 package com.example.cs4550finalprojectjava.services;
 
+import com.example.cs4550finalprojectjava.models.Role;
 import com.example.cs4550finalprojectjava.models.Song;
 import com.example.cs4550finalprojectjava.models.User;
 import com.example.cs4550finalprojectjava.repositories.SongRepository;
+import com.example.cs4550finalprojectjava.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 import static com.example.cs4550finalprojectjava.services.UserService.USER;
 
@@ -16,6 +19,8 @@ import static com.example.cs4550finalprojectjava.services.UserService.USER;
 public class SongService {
     @Autowired
     SongRepository songRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/api/song")
     public List<Song> findAllSongs() {
@@ -38,10 +43,25 @@ public class SongService {
         return songRepository.findSongBySongId(songId);
     }
 
-    @PostMapping("/api/song")
-    public Song createSong(@RequestBody Song song, HttpSession session) {
+    @PostMapping("/api/artist/song/")
+    public Song createSongByArtist(@RequestBody Song song, HttpSession session) {
+        song.setSongId(new StringBuilder(song.getTitle()).append("-").append(song.getArtistName()).toString());
         if (songRepository.findSongBySongId(song.getSongId()) == null) {
             song.setArtist((User) session.getAttribute(USER));
+            songRepository.save(song);
+            return song;
+        }
+        return null;
+    }
+
+    @PostMapping("/api/song")
+    public Song createSong(@RequestBody Song song) {
+        song.setSongId(new StringBuilder(song.getTitle()).append("-").append(song.getArtistName()).toString());
+        if (songRepository.findSongBySongId(song.getSongId()) == null) {
+            User artist = userRepository.findUserByUsername(song.getArtistName());
+            if (artist != null && artist.getRole() == Role.ARTIST) {
+                song.setArtist(artist);
+            }
             songRepository.save(song);
             return song;
         }

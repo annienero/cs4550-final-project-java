@@ -12,6 +12,7 @@ public class Song {
     private int id;
     private String songId;
     private String title;
+    private String artistName;
     @ManyToOne()
     @JsonIgnore
     @JoinColumn(name="artist_id")
@@ -58,6 +59,14 @@ public class Song {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
     }
 
     public void updateSong(Song song) {
