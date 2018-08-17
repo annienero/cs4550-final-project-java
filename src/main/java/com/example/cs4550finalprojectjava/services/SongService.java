@@ -21,17 +21,17 @@ public class SongService {
     SongRepository songRepository;
     @Autowired
     UserRepository userRepository;
-
+//work
     @GetMapping("/api/song")
     public List<Song> findAllSongs() {
         return (List<Song>) songRepository.findAll();
     }
-
+//work
     @GetMapping("/api/song/search/{keyword}")
     public List<Song> findAllSongsWithKeyword(@PathVariable("keyword") String keyword) {
         return songRepository.findAllSongsWithKeyword(keyword);
     }
-
+//work
     @GetMapping("/api/song/{id}")
     public Song findSongById(@PathVariable("id") String id) {
         int songId = Integer.parseInt(id);
@@ -45,7 +45,7 @@ public class SongService {
 
     @PostMapping("/api/artist/song/")
     public Song createSongByArtist(@RequestBody Song song, HttpSession session) {
-        song.setSongId(new StringBuilder(song.getTitle()).append("-").append(song.getArtistName()).toString());
+        setSongId(song);
         if (songRepository.findSongBySongId(song.getSongId()) == null) {
             song.setArtist((User) session.getAttribute(USER));
             songRepository.save(song);
@@ -56,7 +56,7 @@ public class SongService {
 
     @PostMapping("/api/song")
     public Song createSong(@RequestBody Song song) {
-        song.setSongId(new StringBuilder(song.getTitle()).append("-").append(song.getArtistName()).toString());
+        setSongId(song);
         if (songRepository.findSongBySongId(song.getSongId()) == null) {
             User artist = userRepository.findUserByUsername(song.getArtistName());
             if (artist != null && artist.getRole() == Role.ARTIST) {
@@ -66,6 +66,11 @@ public class SongService {
             return song;
         }
         return null;
+    }
+
+    private void setSongId(Song song) {
+        song.setSongId(new StringBuilder(song.getTitle()).append("-").append(song.getArtistName())
+                .toString().toLowerCase().replaceAll("\\s",""));
     }
 
     @PutMapping("/api/song/{songId}")
