@@ -21,9 +21,6 @@ public class User {
     private List<Song> uploads;
     @OneToMany(mappedBy="user")
     private List<Comment> comments;
-    @ManyToMany()
-    @JoinColumn(name="followed_id", referencedColumnName="id")
-    private List<User> followers;
 
     public int getId() {
         return id;
@@ -102,14 +99,6 @@ public class User {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
-    }
-
-    public List<User> getFollowers() {
-        return followers;
-    }
-
-    public void setFollowers(List<User> followers) {
-        this.followers = followers;
     }
 
     public void updateUser(User user) {
