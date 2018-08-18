@@ -48,7 +48,7 @@ public class FollowService {
         return followRepository.getFollowing(curUser.getId());
     }
 
-    @GetMapping("/api/user/{userId}/followers")
+    @GetMapping("/api/user/followers")
     public List<User> getCurUerFollowers(HttpSession session) {
         User curUser = (User) session.getAttribute(USER);
         return followRepository.getFollowers(curUser.getId());

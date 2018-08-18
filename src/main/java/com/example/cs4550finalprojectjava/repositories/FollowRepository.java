@@ -2,13 +2,15 @@ package com.example.cs4550finalprojectjava.repositories;
 
 import com.example.cs4550finalprojectjava.models.Follow;
 import com.example.cs4550finalprojectjava.models.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
 public interface FollowRepository extends CrudRepository<Follow, Integer> {
-    // find followers for followed
-    List<User> findDistinctFollowerByFollowed(User followed);
-    // find all users followed by follower
-    List<User> findDistinctFollowedByFollower(User follower);
+    @Query("SELECT follower FROM Follow WHERE followed_id=:followed")
+    List<User> getFollowers(int followed);
+
+    @Query("SELECT followed FROM Follow WHERE follower_id=:follower")
+    List<User> getFollowing(int follower);
 }

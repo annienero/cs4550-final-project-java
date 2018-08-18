@@ -1,5 +1,7 @@
 package com.example.cs4550finalprojectjava.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,9 +9,11 @@ public class Follow {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
-    @OneToOne
+    @ManyToOne
+    @JsonIgnore
     private User follower;
-    @OneToOne
+    @ManyToOne
+    @JsonIgnore
     private User followed;
 
     public int getId() {

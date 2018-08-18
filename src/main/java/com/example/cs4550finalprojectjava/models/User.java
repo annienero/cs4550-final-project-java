@@ -21,6 +21,10 @@ public class User {
     private List<Song> uploads;
     @OneToMany(mappedBy="user")
     private List<Comment> comments;
+    @OneToMany(mappedBy="follower")
+    private List<Follow> followedList;
+    @OneToMany(mappedBy="followed")
+    private List<Follow> followerList;
 
     public int getId() {
         return id;
@@ -118,5 +122,21 @@ public class User {
         if (user.email != null) {
             this.email = user.email;
         }
+    }
+
+    public List<Follow> getFollowedList() {
+        return followedList;
+    }
+
+    public void setFollowedList(List<Follow> followedList) {
+        this.followedList = followedList;
+    }
+
+    public List<Follow> getFollowerList() {
+        return followerList;
+    }
+
+    public void setFollowerList(List<Follow> followerList) {
+        this.followerList = followerList;
     }
 }
