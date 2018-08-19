@@ -106,4 +106,9 @@ public class SongService {
         }
         return null;
     }
+
+    @GetMapping("/api/song/{songId}/avg/overall")
+    public double getAvgOverallById(@PathVariable("songId") String songId) {
+        return songRepository.getAvgOverallById(Integer.parseInt(songId));
+    }
 }

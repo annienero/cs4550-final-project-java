@@ -15,4 +15,25 @@ public interface SongRepository extends CrudRepository<Song, Integer> {
 
     @Query(value = "SELECT * FROM Song WHERE artist LIKE %:keyword%", nativeQuery = true)
     List<Song> findAllSongsWithKeywordInArtist(String keyword);
+
+    @Query(value = "SELECT avg(rating_value) FROM Song song JOIN Review review ON song.id=review.song_id JOIN Rating rating ON review.id=rating.review_id WHERE rating.rating_type=0 AND song.id=:id GROUP BY song.id", nativeQuery = true)
+    double getAvgOverallById(int id);
+
+    @Query(value = "SELECT avg(rating_value) FROM Song song JOIN Review review ON song.id=review.song_id JOIN Rating rating ON review.id=rating.review_id WHERE rating.rating_type=1 AND song.id=:id GROUP BY song.id", nativeQuery = true)
+    double getAvgProductionById(int id);
+
+    @Query(value = "SELECT avg(rating_value) FROM Song song JOIN Review review ON song.id=review.song_id JOIN Rating rating ON review.id=rating.review_id WHERE rating.rating_type=2 AND song.id=:id GROUP BY song.id", nativeQuery = true)
+    double getAvgVocalsById(int id);
+
+    @Query(value = "SELECT avg(rating_value) FROM Song song JOIN Review review ON song.id=review.song_id JOIN Rating rating ON review.id=rating.review_id WHERE rating.rating_type=3 AND song.id=:id GROUP BY song.id", nativeQuery = true)
+    double getAvgInstrumentationById(int id);
+
+    @Query(value = "SELECT avg(rating_value) FROM Song song JOIN Review review ON song.id=review.song_id JOIN Rating rating ON review.id=rating.review_id WHERE rating.rating_type=4 AND song.id=:id GROUP BY song.id", nativeQuery = true)
+    double getAvgLyricismById(int id);
+
+    @Query(value = "SELECT avg(rating_value) FROM Song song JOIN Review review ON song.id=review.song_id JOIN Rating rating ON review.id=rating.review_id WHERE rating.rating_type=5 AND song.id=:id GROUP BY song.id", nativeQuery = true)
+    double getAvgEmotionById(int id);
+
+
+
 }

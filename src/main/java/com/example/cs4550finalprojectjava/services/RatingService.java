@@ -3,8 +3,10 @@ package com.example.cs4550finalprojectjava.services;
 
 import com.example.cs4550finalprojectjava.models.Rating;
 import com.example.cs4550finalprojectjava.models.Review;
+import com.example.cs4550finalprojectjava.models.Song;
 import com.example.cs4550finalprojectjava.repositories.RatingRepository;
 import com.example.cs4550finalprojectjava.repositories.ReviewRepository;
+import com.example.cs4550finalprojectjava.repositories.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,8 @@ public class RatingService {
     RatingRepository ratingRepository;
     @Autowired
     ReviewRepository reviewRepository;
+    @Autowired
+    SongRepository songRepository;
 
     @GetMapping("/api/rating")
     public List<Rating> findAllRatings() {
@@ -48,6 +52,22 @@ public class RatingService {
             Review review = data.get();
             rating.setReview(review);
             ratingRepository.save(rating);
+            Song s = review.getSong();
+            switch (rating.getRatingType()) {
+                case OVERALL:
+                    s.setAvgOverall(songRepository.getAvgOverallById(s.getId()));
+                case PRODUCTION:
+                    s.setAvgProduction(songRepository.getAvgProductionById(s.getId()));
+                case VOCALS:
+                    s.setAvgOverall(songRepository.getAvgVocalsById(s.getId()));
+                case EMOTION:
+                    s.setAvgOverall(songRepository.getAvgEmotionById(s.getId()));
+                case LYRICISM:
+                    s.setAvgOverall(songRepository.getAvgLyricismById(s.getId()));
+                case INSTRUMENTATION:
+                    s.setAvgOverall(songRepository.getAvgInstrumentationById(s.getId()));
+            }
+            songRepository.save(s);
             return rating;
         }
         return null;

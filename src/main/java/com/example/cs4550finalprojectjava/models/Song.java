@@ -14,6 +14,11 @@ public class Song {
     private String title;
     private String artistName;
     private SongType songType;
+    private double avgOverall;
+    private double avgProduction;
+    private double avgVocals;
+    private double avgEmotion;
+    private double avgInstrumentation;
     @ManyToOne()
     @JsonIgnore
     @JoinColumn(name="artist_id")
@@ -78,6 +83,14 @@ public class Song {
         this.songType = songType;
     }
 
+    public double getAvgOverall() {
+        return avgOverall;
+    }
+
+    public void setAvgOverall(double avgOverall) {
+        this.avgOverall = avgOverall;
+    }
+
     public void updateSong(Song song) {
         if (song.title != null) {
             this.title = song.title;
@@ -90,4 +103,35 @@ public class Song {
         }
     }
 
+    public double getAvgProduction() {
+        return avgProduction;
+    }
+
+    public void setAvgProduction(double avgProduction) {
+        this.avgProduction = avgProduction;
+    }
+
+    public double getAvgVocals() {
+        return avgVocals;
+    }
+
+    public void setAvgVocals(double avgVocals) {
+        this.avgVocals = avgVocals;
+    }
+
+    public double getAvgEmotion() {
+        return avgEmotion;
+    }
+
+    public void setAvgEmotion(double avgEmotion) {
+        this.avgEmotion = avgEmotion;
+    }
+
+    public double getAvgInstrumentation() {
+        return avgInstrumentation;
+    }
+
+    public void setAvgInstrumentation(double avgInstrumentation) {
+        this.avgInstrumentation = avgInstrumentation;
+    }
 }
