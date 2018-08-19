@@ -5,6 +5,7 @@ import com.example.cs4550finalprojectjava.models.Follow;
 import com.example.cs4550finalprojectjava.models.Review;
 import com.example.cs4550finalprojectjava.models.Song;
 import com.example.cs4550finalprojectjava.models.User;
+import com.example.cs4550finalprojectjava.repositories.FollowRepository;
 import com.example.cs4550finalprojectjava.repositories.ReviewRepository;
 import com.example.cs4550finalprojectjava.repositories.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class ReviewService {
 
     @Autowired
     SongRepository songRepository;
+
+    @Autowired
+    FollowRepository followRepository;
 
     @GetMapping("/api/review")
     public List<Review> findAllReviews() {
@@ -77,13 +81,8 @@ public class ReviewService {
     public List<Review> findFollowedReviews(HttpSession session) {
         User curUser = (User) session.getAttribute(USER);
         if (curUser != null) {
-            List<Follow> follows = curUser.getFollowedList();
-            List<User> followed = new ArrayList<User>();
-            for (Follow f : follows) {
-                followed.add(f.getFollowed());
-            }
             List<Review> reviews = new ArrayList<Review>();
-            for (User u : followed) {
+            for (User u : followRepository.getFollowing(curUser.getId())) {
                 reviews.addAll(u.getReviews());
             }
             return reviews;
