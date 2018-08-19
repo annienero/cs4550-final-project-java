@@ -14,7 +14,6 @@ public class Review {
     @Temporal(TemporalType.TIMESTAMP)
     private Date reviewTime;
     private String reviewText;
-    private SongType songType;
     @OneToMany()
     @JoinColumn(name="review_id", referencedColumnName="id")
     private List<Rating> ratings;
@@ -88,14 +87,6 @@ public class Review {
 
     public void setReviewText(String reviewText) {
         this.reviewText = reviewText;
-    }
-
-    public SongType getSongType() {
-        return songType;
-    }
-
-    public void setSongType(SongType songType) {
-        this.songType = songType;
     }
 
     public void updateReview(Review review) {
