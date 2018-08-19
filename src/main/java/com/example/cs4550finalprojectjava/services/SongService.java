@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 import static com.example.cs4550finalprojectjava.services.UserService.USER;
 
@@ -82,5 +84,16 @@ public class SongService {
     @DeleteMapping("/api/song/{id}")
     public void deleteSong(@PathVariable("id") String id) {
         songRepository.deleteById(Integer.parseInt(id));
+    }
+
+    //api/user/81/song
+    @GetMapping("/api/user/{userId}/song")
+    public List<Song> findUploadsForArtist(@PathVariable("userId") String userId) {
+        Optional<User> data = userRepository.findById(Integer.parseInt(userId));
+        if (data.isPresent()) {
+            User artist = data.get();
+            return artist.getUploads();
+        }
+        return null;
     }
 }
