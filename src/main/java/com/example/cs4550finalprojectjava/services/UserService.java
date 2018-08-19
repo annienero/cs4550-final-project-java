@@ -84,4 +84,9 @@ public class UserService {
         userRepository.deleteById(Integer.parseInt(userId));
     }
 
+    @GetMapping("/api/song/search/user/{keyword}")
+    public List<User> findAllSongsWithKeywordInArtist(@PathVariable("keyword") String keyword) {
+        return userRepository.findAllUsersWithKeywordInUsername(keyword);
+    }
+
 }
