@@ -4,5 +4,7 @@ public enum RatingType {
     OVERALL,
     PRODUCTION,
     VOCALS,
-    INSTRUMENTATION
+    INSTRUMENTATION,
+    LYRICISM,
+    EMOTION
 }
