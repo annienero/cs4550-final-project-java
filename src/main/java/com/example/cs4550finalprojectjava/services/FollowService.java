@@ -49,7 +49,7 @@ public class FollowService {
     }
 
     @GetMapping("/api/user/followers")
-    public List<User> getCurUerFollowers(HttpSession session) {
+    public List<User> getCurUserFollowers(HttpSession session) {
         User curUser = (User) session.getAttribute(USER);
         return followRepository.getFollowers(curUser.getId());
     }

@@ -57,6 +57,7 @@ public class SongService {
 
     @PostMapping("/api/song")
     public Song createSong(@RequestBody Song song) {
+        //TODO add artist obj
         setSongId(song);
         if (songRepository.findSongBySongId(song.getSongId()) == null) {
             User artist = userRepository.findUserByUsername(song.getArtistName());
@@ -86,7 +87,6 @@ public class SongService {
         songRepository.deleteById(Integer.parseInt(id));
     }
 
-    //api/user/81/song
     @GetMapping("/api/user/{userId}/song")
     public List<Song> findUploadsForArtist(@PathVariable("userId") String userId) {
         Optional<User> data = userRepository.findById(Integer.parseInt(userId));
