@@ -18,6 +18,7 @@ public class Song {
     private double avgProduction;
     private double avgVocals;
     private double avgEmotion;
+    private double avgLyricism;
     private double avgInstrumentation;
     @ManyToOne()
     @JsonIgnore
@@ -133,5 +134,13 @@ public class Song {
 
     public void setAvgInstrumentation(double avgInstrumentation) {
         this.avgInstrumentation = avgInstrumentation;
+    }
+
+    public double getAvgLyricism() {
+        return avgLyricism;
+    }
+
+    public void setAvgLyricism(double avgLyricism) {
+        this.avgLyricism = avgLyricism;
     }
 }

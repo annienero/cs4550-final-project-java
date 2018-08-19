@@ -56,16 +56,22 @@ public class RatingService {
             switch (rating.getRatingType()) {
                 case OVERALL:
                     s.setAvgOverall(songRepository.getAvgOverallById(s.getId()));
+                    break;
                 case PRODUCTION:
                     s.setAvgProduction(songRepository.getAvgProductionById(s.getId()));
+                    break;
                 case VOCALS:
-                    s.setAvgOverall(songRepository.getAvgVocalsById(s.getId()));
+                    s.setAvgVocals(songRepository.getAvgVocalsById(s.getId()));
+                    break;
                 case EMOTION:
-                    s.setAvgOverall(songRepository.getAvgEmotionById(s.getId()));
+                    s.setAvgEmotion(songRepository.getAvgEmotionById(s.getId()));
+                    break;
                 case LYRICISM:
-                    s.setAvgOverall(songRepository.getAvgLyricismById(s.getId()));
+                    s.setAvgLyricism(songRepository.getAvgLyricismById(s.getId()));
+                    break;
                 case INSTRUMENTATION:
-                    s.setAvgOverall(songRepository.getAvgInstrumentationById(s.getId()));
+                    s.setAvgInstrumentation(songRepository.getAvgInstrumentationById(s.getId()));
+                    break;
             }
             songRepository.save(s);
             return rating;
