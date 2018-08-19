@@ -57,12 +57,17 @@ public class SongService {
 
     @PostMapping("/api/song")
     public Song createSong(@RequestBody Song song) {
-        //TODO add artist obj
         setSongId(song);
         if (songRepository.findSongBySongId(song.getSongId()) == null) {
             User artist = userRepository.findUserByUsername(song.getArtistName());
-            if (artist != null && artist.getRole() == Role.ARTIST) {
+            if (artist != null) {
                 song.setArtist(artist);
+            } else {
+                User newArtist = new User();
+                newArtist.setUsername(song.getArtistName());
+                newArtist.setRole(Role.ARTIST);
+                song.setArtist(newArtist);
+                userRepository.save(newArtist);
             }
             songRepository.save(song);
             return song;
