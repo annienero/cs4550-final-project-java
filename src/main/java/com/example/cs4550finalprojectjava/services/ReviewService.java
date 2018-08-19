@@ -1,6 +1,7 @@
 package com.example.cs4550finalprojectjava.services;
 
 
+import com.example.cs4550finalprojectjava.models.Follow;
 import com.example.cs4550finalprojectjava.models.Review;
 import com.example.cs4550finalprojectjava.models.Song;
 import com.example.cs4550finalprojectjava.models.User;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +70,24 @@ public class ReviewService {
         if(data.isPresent()) {
             Song song = data.get();
             return song.getReviews();
+        }
+        return null;
+    }
+
+    @GetMapping("/api/review/follow")
+    public List<Review> findFollowedReviews(HttpSession session) {
+        User curUser = (User) session.getAttribute(USER);
+        if (curUser != null) {
+            List<Follow> follows = curUser.getFollowedList();
+            List<User> followed = new ArrayList<User>();
+            for (Follow f : follows) {
+                followed.add(f.getFollowed());
+            }
+            List<Review> reviews = new ArrayList<Review>();
+            for (User u : followed) {
+                reviews.addAll(u.getReviews());
+            }
+            return reviews;
         }
         return null;
     }
