@@ -14,6 +14,8 @@ public class User {
     private String lastName;
     private String email;
     private Role role;
+    private String bannerImage;
+    private String profilePic;
     @OneToMany(mappedBy="user")
     private List<Review> reviews;
     @OneToMany()
@@ -122,6 +124,12 @@ public class User {
         if (user.email != null) {
             this.email = user.email;
         }
+        if (user.bannerImage != null) {
+            this.bannerImage = user.bannerImage;
+        }
+        if (user.profilePic != null) {
+            this.profilePic = user.profilePic;
+        }
     }
 
     public List<Follow> getFollowedList() {
@@ -138,5 +146,21 @@ public class User {
 
     public void setFollowerList(List<Follow> followerList) {
         this.followerList = followerList;
+    }
+
+    public String getBannerImage() {
+        return bannerImage;
+    }
+
+    public void setBannerImage(String bannerImage) {
+        this.bannerImage = bannerImage;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 }
