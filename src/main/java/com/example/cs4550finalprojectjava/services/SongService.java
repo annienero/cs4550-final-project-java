@@ -28,9 +28,14 @@ public class SongService {
         return (List<Song>) songRepository.findAll();
     }
 
-    @GetMapping("/api/song/search/{keyword}")
-    public List<Song> findAllSongsWithKeyword(@PathVariable("keyword") String keyword) {
-        return songRepository.findAllSongsWithKeyword(keyword);
+    @GetMapping("/api/song/search/title/{keyword}")
+    public List<Song> findAllSongsWithKeywordInTitle(@PathVariable("keyword") String keyword) {
+        return songRepository.findAllSongsWithKeywordInTitle(keyword);
+    }
+
+    @GetMapping("/api/song/search/artist/{keyword}")
+    public List<Song> findAllSongsWithKeywordInArtist(@PathVariable("keyword") String keyword) {
+        return songRepository.findAllSongsWithKeywordInArtist(keyword);
     }
 
     @GetMapping("/api/song/{id}")

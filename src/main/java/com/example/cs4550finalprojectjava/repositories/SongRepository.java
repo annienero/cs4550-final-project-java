@@ -8,9 +8,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface SongRepository extends CrudRepository<Song, Integer> {
-    @Query(value = "SELECT * FROM Song WHERE song_id LIKE %:keyword%", nativeQuery = true)
-    List<Song> findAllSongsWithKeyword(@Param("keyword") String keyword);
-
     @Query("SELECT song FROM Song song WHERE song.songId=:songId")
     Song findSongBySongId(String songId);
+
+    @Query(value = "SELECT * FROM Song WHERE title LIKE %:keyword%", nativeQuery = true)
+    List<Song> findAllSongsWithKeywordInTitle(String keyword);
+
+    @Query(value = "SELECT * FROM Song WHERE artist LIKE %:keyword%", nativeQuery = true)
+    List<Song> findAllSongsWithKeywordInArtist(String keyword);
 }
