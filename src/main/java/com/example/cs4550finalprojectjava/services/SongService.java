@@ -53,7 +53,9 @@ public class SongService {
     public Song createSongByArtist(@RequestBody Song song, HttpSession session) {
         setSongId(song);
         if (songRepository.findSongBySongId(song.getSongId()) == null) {
-            song.setArtist((User) session.getAttribute(USER));
+            User u = (User) session.getAttribute(USER);
+            song.setArtist(u);
+            song.setArtistName(u.getUsername());
             songRepository.save(song);
             return song;
         }
@@ -67,11 +69,13 @@ public class SongService {
             User artist = userRepository.findUserByUsername(song.getArtistName());
             if (artist != null) {
                 song.setArtist(artist);
+                song.setArtistName(artist.getUsername());
             } else {
                 User newArtist = new User();
                 newArtist.setUsername(song.getArtistName());
                 newArtist.setRole(Role.ARTIST);
                 song.setArtist(newArtist);
+                song.setArtistName(newArtist.getUsername());
                 userRepository.save(newArtist);
             }
             songRepository.save(song);

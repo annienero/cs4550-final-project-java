@@ -14,6 +14,9 @@ public class Review {
     @Temporal(TemporalType.TIMESTAMP)
     private Date reviewTime;
     private String reviewText;
+    private String username;
+    private String songTitle;
+    private String songArtist;
     @OneToMany()
     @JoinColumn(name="review_id", referencedColumnName="id")
     private List<Rating> ratings;
@@ -95,4 +98,27 @@ public class Review {
         }
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getSongTitle() {
+        return songTitle;
+    }
+
+    public void setSongTitle(String songTitle) {
+        this.songTitle = songTitle;
+    }
+
+    public String getSongArtist() {
+        return songArtist;
+    }
+
+    public void setSongArtist(String songArtist) {
+        this.songArtist = songArtist;
+    }
 }

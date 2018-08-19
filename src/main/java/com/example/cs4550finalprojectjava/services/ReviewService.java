@@ -48,7 +48,11 @@ public class ReviewService {
         if(data.isPresent()) {
             Song song = data.get();
             review.setSong(song);
-            review.setUser((User) session.getAttribute(USER));
+            User u = (User) session.getAttribute(USER);
+            review.setUser(u);
+            review.setUsername(u.getUsername());
+            review.setSongTitle(song.getTitle());
+            review.setSongArtist(song.getArtistName());
             reviewRepository.save(review);
             return review;
         }
