@@ -8,6 +8,7 @@ import com.example.cs4550finalprojectjava.models.User;
 import com.example.cs4550finalprojectjava.repositories.FollowRepository;
 import com.example.cs4550finalprojectjava.repositories.ReviewRepository;
 import com.example.cs4550finalprojectjava.repositories.SongRepository;
+import com.example.cs4550finalprojectjava.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,9 @@ public class ReviewService {
 
     @Autowired
     FollowRepository followRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/api/review")
     public List<Review> findAllReviews() {
@@ -90,6 +94,16 @@ public class ReviewService {
                 reviews.addAll(u.getReviews());
             }
             return reviews;
+        }
+        return null;
+    }
+
+    @GetMapping("/api/user/{userId}/review")
+    public List<Review> findAllReviewsForUser(@PathVariable("userId") String userId) {
+        Optional<User> data = userRepository.findById(Integer.parseInt(userId));
+        if(data.isPresent()) {
+            User user = data.get();
+            return user.getReviews();
         }
         return null;
     }
