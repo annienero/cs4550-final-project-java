@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge=3600, allowCredentials = "true")
+@CrossOrigin(origins = "*", maxAge = 3600, allowCredentials = "true")
 public class RatingService {
 
     @Autowired
@@ -38,7 +38,7 @@ public class RatingService {
     @GetMapping("/api/review/{reviewId}/rating")
     public List<Rating> findAllRatingsForReview(@PathVariable("reviewId") String reviewId) {
         Optional<Review> data = reviewRepository.findById(Integer.parseInt(reviewId));
-        if(data.isPresent()) {
+        if (data.isPresent()) {
             Review review = data.get();
             return review.getRatings();
         }
@@ -48,31 +48,17 @@ public class RatingService {
     @PostMapping("/api/review/{reviewId}/rating")
     public Rating createRating(@PathVariable("reviewId") String reviewId, @RequestBody Rating rating) {
         Optional<Review> data = reviewRepository.findById(Integer.parseInt(reviewId));
-        if(data.isPresent()) {
+        if (data.isPresent()) {
             Review review = data.get();
             rating.setReview(review);
             ratingRepository.save(rating);
             Song s = review.getSong();
-            switch (rating.getRatingType()) {
-                case OVERALL:
-                    s.setAvgOverall(songRepository.getAvgOverallById(s.getId()));
-                    break;
-                case PRODUCTION:
-                    s.setAvgProduction(songRepository.getAvgProductionById(s.getId()));
-                    break;
-                case VOCALS:
-                    s.setAvgVocals(songRepository.getAvgVocalsById(s.getId()));
-                    break;
-                case EMOTION:
-                    s.setAvgEmotion(songRepository.getAvgEmotionById(s.getId()));
-                    break;
-                case LYRICISM:
-                    s.setAvgLyricism(songRepository.getAvgLyricismById(s.getId()));
-                    break;
-                case INSTRUMENTATION:
-                    s.setAvgInstrumentation(songRepository.getAvgInstrumentationById(s.getId()));
-                    break;
-            }
+            s.setAvgOverall(songRepository.getAvgOverallById(s.getId()));
+            s.setAvgProduction(songRepository.getAvgProductionById(s.getId()));
+            s.setAvgVocals(songRepository.getAvgVocalsById(s.getId()));
+            s.setAvgEmotion(songRepository.getAvgEmotionById(s.getId()));
+            s.setAvgLyricism(songRepository.getAvgLyricismById(s.getId()));
+            s.setAvgInstrumentation(songRepository.getAvgInstrumentationById(s.getId()));
             songRepository.save(s);
             return rating;
         }
