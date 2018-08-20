@@ -25,6 +25,10 @@ public class FollowService {
     public Follow follow(@PathVariable("userId") String userId, HttpSession session) {
         User followed = userRepository.findById(Integer.parseInt(userId)).get();
         User follower = (User) session.getAttribute(USER);
+        List<Follow> followList = followRepository.findFollow(followed.getId(), follower.getId());
+        if(followList.size() > 0) {
+            return followList.get(0);
+        }
         Follow follow = new Follow();
         follow.setFollowed(followed);
         follow.setFollower(follower);
@@ -36,7 +40,7 @@ public class FollowService {
     public void unfollow(@PathVariable("userId") String userId, HttpSession session) {
         User followed = userRepository.findById(Integer.parseInt(userId)).get();
         User follower = (User) session.getAttribute(USER);
-        followRepository.deleteById(followRepository.findFollow(followed.getId(), follower.getId()));
+        followRepository.deleteById(followRepository.findFollowId(followed.getId(), follower.getId()));
     }
 
     @GetMapping("/api/user/{userId}/following")
