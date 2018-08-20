@@ -13,4 +13,7 @@ public interface FollowRepository extends CrudRepository<Follow, Integer> {
 
     @Query("SELECT followed FROM Follow WHERE follower_id=:follower")
     List<User> getFollowing(int follower);
+
+    @Query("SELECT id FROM Follow WHERE follower_id=:follower AND followed_id=:followed")
+    int findFollow(int followed, int follower);
 }
