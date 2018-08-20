@@ -9,6 +9,8 @@ public class Follow {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+    private String followerName;
+    private String followedName;
     @ManyToOne
     @JsonIgnore
     private User follower;
@@ -40,4 +42,19 @@ public class Follow {
         this.followed = followed;
     }
 
+    public String getFollowerName() {
+        return followerName;
+    }
+
+    public void setFollowerName(String followerName) {
+        this.followerName = followerName;
+    }
+
+    public String getFollowedName() {
+        return followedName;
+    }
+
+    public void setFollowedName(String followedName) {
+        this.followedName = followedName;
+    }
 }

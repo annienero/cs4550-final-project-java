@@ -32,6 +32,8 @@ public class FollowService {
         Follow follow = new Follow();
         follow.setFollowed(followed);
         follow.setFollower(follower);
+        follow.setFollowedName(followed.getUsername());
+        follow.setFollowerName(follower.getUsername());
         followRepository.save(follow);
         return follow;
     }
