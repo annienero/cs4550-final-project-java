@@ -42,7 +42,9 @@ public class CommentService {
         if(data.isPresent()) {
             Review review = data.get();
             comment.setReview(review);
-            comment.setUser((User) session.getAttribute(USER));
+            User u = (User) session.getAttribute(USER);
+            comment.setUser(u);
+            comment.setUsername(u.getUsername());
             commentRepository.save(comment);
             return comment;
         }

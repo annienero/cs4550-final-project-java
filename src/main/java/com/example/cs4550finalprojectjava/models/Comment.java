@@ -13,6 +13,7 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date commentTime;
     private String commentText;
+    private String username;
     @ManyToOne
     @JsonIgnore
     private User user;
@@ -69,5 +70,13 @@ public class Comment {
         if (comment.commentText != null) {
             this.commentText = comment.commentText;
         }
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
